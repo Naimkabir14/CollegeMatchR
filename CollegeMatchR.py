@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-import requests, time, re, json
+import requests, time, json
 from bs4 import BeautifulSoup
-import pandas as pd
 
 
 def all_states():
@@ -46,11 +45,11 @@ def college_selection(states):
 
             test_scores = base_element.find_next_sibling().find_next_sibling().div.span.text
 
-            if '—' in test_scores:
+            if 'â€”' in test_scores:
                 test_scores = 'N/A'
-            if '—' in acceptance_rates:
+            if 'â€”' in acceptance_rates:
                 acceptance_rates = 'N/A'
-            if '—' in school_type:
+            if 'â€”' in school_type:
                 school_type = 'N/A'
             lst.append(schools)
             universities_info1[schools]={'Location':location,'School Type':school_type,'Acceptance Rates':acceptance_rates,'Test Scores':test_scores}
@@ -129,13 +128,13 @@ def more_data(universities, lst):
             universities[school].update({'School Rank': 'N/A'})
             pass
 
-    print("Hang tight! We're working on it!")
-
-    for i in range(1,101,4):
-         print("\r{0}%".format(i), end = "")
-         time.sleep(.25)
-    print(json.dumps(universities, indent=4))
-
+print("Hang tight! We're working on it!")
+for i in range(1, 101, 1):
+    print("\r{0}%".format(i), end="")
+    time.sleep(.35)
+print('\\n'+json.dumps(universities, indent=4))
 
 more_data(universities, lst)
+
+
 
